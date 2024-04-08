@@ -1,7 +1,8 @@
+import abc.abc276.Abc276B
 import abc.abc277.Abc277D
 
 fun main() {
-    Abc277D().solve()
+    Abc276B().solve()
 }
 
 
