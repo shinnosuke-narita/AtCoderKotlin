@@ -1,11 +1,13 @@
 package abc.abc273
+
+import java.io.PrintWriter
 import java.util.*
 import kotlin.math.min
 
-typealias MP = MutableMap<Int, MutableList<Int>>
+typealias MP = MutableMap<Int, ArrayList<Int>>
 
 class Abc273D {
-    private fun init(mp: MP, end: Int) {
+    private fun  init(mp: MP, end: Int) {
         mp.forEach { (_, list) ->
             list.sort()
             list.add(end)
@@ -48,10 +50,10 @@ class Abc273D {
             val mpU: MP = mutableMapOf()
             repeat(n) {
                 val (i, j) = sc.nextLine().split(" ").map { it.toInt() }
-                mpR[i]?.add(j) ?: run { mpR[i] = mutableListOf(j)  }
-                mpL[i]?.add(-j) ?: run { mpL[i] = mutableListOf(-j) }
-                mpD[j]?.add(i) ?: run { mpD[j] = mutableListOf(i) }
-                mpU[j]?.add(-i) ?: run { mpU[j] = mutableListOf(-i) }
+                mpR[i]?.add(j) ?: run { mpR[i] = arrayListOf(j)  }
+                mpL[i]?.add(-j) ?: run { mpL[i] = arrayListOf(-j) }
+                mpD[j]?.add(i) ?: run { mpD[j] = arrayListOf(i) }
+                mpU[j]?.add(-i) ?: run { mpU[j] = arrayListOf(-i) }
             }
             /** 壁の座標をソート */
             init(mpR, w+1)
@@ -63,18 +65,20 @@ class Abc273D {
             val q = sc.nextLine().toInt()
             var i = si
             var j = sj
-            repeat(q) {
-                val dl = sc.nextLine().split(" ")
-                val d = dl[0].toCharArray().first()
-                val l = dl[1].toInt()
+            PrintWriter(System.out).use {pw ->
+                repeat(q) {
+                    val dl = sc.nextLine().split(" ")
+                    val d = dl[0].toCharArray().first()
+                    val l = dl[1].toInt()
 
-                if (d == 'R') j = move(mpR, i, j, l, w+1)
-                if (d == 'L') j = -move(mpL, i, -j, l, 0)
-                if (d == 'D') i = move(mpD, j, i, l, h+1)
-                if (d == 'U') i = -move(mpU, j, -i, l, 0)
+                    if (d == 'R') j = move(mpR, i, j, l, w+1)
+                    if (d == 'L') j = -move(mpL, i, -j, l, 0)
+                    if (d == 'D') i = move(mpD, j, i, l, h+1)
+                    if (d == 'U') i = -move(mpU, j, -i, l, 0)
 
-                val ans = String.format("%d %d", i, j)
-                println(ans)
+                    val ans = String.format("%d %d", i, j)
+                    pw.println(ans)
+                }
             }
         }
     }
