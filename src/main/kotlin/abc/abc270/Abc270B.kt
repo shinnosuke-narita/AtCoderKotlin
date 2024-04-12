@@ -4,32 +4,39 @@ import java.io.PrintWriter
 import java.util.*
 import kotlin.math.abs
 
+private fun inRange(l: Int, r: Int, value: Int): Boolean {
+    var ll = l
+    var rr = r
+    if (l > r) {
+        ll = r
+        rr = l
+    }
+
+    return value in (ll + 1)..<rr
+}
 
 fun main() {
     Scanner(System.`in`).use { sc ->
         val (goal, wall, h) = sc.nextLine().split(" ").map { it.toInt() }
 
-        val shortRange = if (goal < 0) IntRange(goal, 0) else IntRange(0,goal)
-
         PrintWriter(System.out).use { out ->
-            if (wall !in shortRange) {
+            if (!inRange(0, goal, wall)) {
                 // スタートとゴール間に壁がない
-                out.println(abs(goal-0))
+                out.println(abs(goal))
                 return
             }
 
             // スタートとゴール間に壁あり
-            val range = if (wall < 0) IntRange(wall, 0) else IntRange(0, wall)
-            if (h in range) {
+            if (inRange(0, wall, h)) {
                 // ハンマーがスタートと壁間にある
-                out.println(abs(goal-0))
+                out.println(abs(goal))
                 return
             }
 
             //ハンマーがスタートと壁間にない
             if ((wall > 0 && wall > h) || (wall < 0 && wall < h)) {
                 // ハンマーが壁の向こう側にはない
-                out.println(abs(goal-0)+abs((h*2)-0))
+                out.println(abs(goal)+abs((h*2)))
                 return
             }
 
