@@ -20,8 +20,8 @@ fun main() {
         s.forEach { if (it == '1') now++ }
         ans = now
 
-        mp.forEach { (_, list) ->
-            list.forEach { i ->
+        for ((key, value) in mp) {
+            for (i in value) {
                 if (s[i] == '1') now-- else now++
             }
             ans = max(ans, now)
